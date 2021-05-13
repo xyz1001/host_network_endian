@@ -13,7 +13,7 @@ This simple library is only used to convert between host and network endian.
 
 ## Usage
 
-- Place `endian.h` in your system wide or project's include directory. Then include this header.
+- Place `host_network_endian.h` in your system wide or project's include directory. Then include this header.
 
 ## Example
 
