@@ -10,8 +10,20 @@
 #define hton32(x) htonl(x)
 #define ntoh32(x) ntohl(x)
 
+#if NTDDI_VERSION >= NTDDI_WIN8
 #define hton64(x) htonll(x)
 #define ntoh64(x) ntohll(x)
+#else
+#include <stdlib.h>
+#if defined(_X86_) || defined(__x86_64__) || defined(__i386__) || \
+        defined(__i486__) || defined(__i586__) || defined(__i686__)
+#define hton64(x) _byteswap_uint64(x)
+#define ntoh64(x) _byteswap_uint64(x)
+#else
+#define hton64(x) ((1 == htonl(1)) ? (x) : _byteswap_uint64(x))
+#define ntoh64(x) ((1 == ntohl(1)) ? (x) : _byteswap_uint64(x))
+#endif
+#endif
 
 #elif defined(__linux__) || defined(__CYGWIN__)
 
